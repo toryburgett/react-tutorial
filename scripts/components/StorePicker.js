@@ -5,18 +5,20 @@
 import React from 'react';
 import { History } from 'react-router';
 import h from '../helpers';
+import reactMixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
-var StorePicker = React.createClass({
-  mixins : [History],
-  goToStore : function(event){
+@autobind
+class StorePicker extends React.Component {
+
+  goToStore(event){
     event.preventDefault();
     var storeId = this.refs.storeId.value;
-    console.log(storeId);
-
     this.history.pushState(null, '/store/' + storeId);
 
-  },
-  render : function(){
+  }
+
+  render(){
     var name = "Tory";
     return(
       <form className="store-selector" onSubmit={this.goToStore}>
@@ -27,6 +29,8 @@ var StorePicker = React.createClass({
       </form>
     )
   }
-});
+}
+
+reactMixin.onClass(StorePicker, History);
 
 export default StorePicker;
